@@ -33,54 +33,51 @@ puts "Your move: rock, paper, or scissors?"
 player_move = gets.chomp.downcase
 
 while !(break_condition(player_move))
-  while !(acceptable_move(player_move) || break_condition(player_move))
+  if !(acceptable_move(player_move))
     puts "You blew it. Try again: is your move rock, paper, or scissors?"
-    player_move = gets.chomp.downcase
-  end
 
-  if break_condition(player_move)
-    break
-  end
-
-  if is_move_rock(player_move)
-    player_move_num = 0
-    player_move = 'Rock'
-  elsif is_move_paper(player_move)
-    player_move_num = 1
-    player_move = 'Paper'
   else
-    player_move_num = 2
-    player_move = 'Scissors'
+    if is_move_rock(player_move)
+      player_move_num = 0
+      player_move = 'Rock'
+    elsif is_move_paper(player_move)
+      player_move_num = 1
+      player_move = 'Paper'
+    else
+      player_move_num = 2
+      player_move = 'Scissors'
+    end
+
+    computer_move_num = rand(3)
+
+    if computer_move_num == 0
+      computer_move = 'Rock'
+    elsif computer_move_num == 1
+      computer_move = 'Paper'
+    else
+      computer_move = 'Scissors'
+    end
+
+    puts ''
+    puts 'You played: ' + player_move
+    puts 'The computer played: ' + computer_move
+    puts ''
+
+    if player_move_num == computer_move_num
+      puts 'It\'s a tie!'
+      tie_tally += 1
+    elsif (player_move_num == computer_move_num-1 && player_move_num != 2) || (player_move_num == 2 && computer_move_num == 0)
+      puts 'You lose :('
+      loss_tally += 1
+    else
+      puts 'You win!! WOOO!'
+      win_tally += 1
+    end
+
+    puts ''
+    puts "Your move: rock, paper, or scissors?"
   end
 
-  computer_move_num = rand(3)
-
-  if computer_move_num == 0
-    computer_move = 'Rock'
-  elsif computer_move_num == 1
-    computer_move = 'Paper'
-  else
-    computer_move = 'Scissors'
-  end
-
-  puts ''
-  puts 'You played: ' + player_move
-  puts 'The computer played: ' + computer_move
-  puts ''
-
-  if player_move_num == computer_move_num
-    puts 'It\'s a tie!'
-    tie_tally += 1
-  elsif (player_move_num == computer_move_num-1 && player_move_num != 2) || (player_move_num == 2 && computer_move_num == 0)
-    puts 'You lose :('
-    loss_tally += 1
-  else
-    puts 'You win!! WOOO!'
-    win_tally += 1
-  end
-
-  puts ''
-  puts "Your move: rock, paper, or scissors?"
   player_move = gets.chomp.downcase
 end
 
